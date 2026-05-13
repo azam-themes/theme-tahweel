@@ -1,0 +1,28 @@
+{# ============================================
+   Hero Banner Component - ثيم تحويل
+   بانر رئيسي متحرك مع CTA قوي
+   ============================================ #}
+
+<section class="hero">
+    {% for slide in component.slides %}
+    <div class="hero__slide" style="background-image: url('{{ slide.image }}');">
+        <div class="hero__overlay"></div>
+        <div class="container">
+            <div class="hero__content">
+                {% if slide.title %}
+                <h2 class="hero__title">{{ slide.title }}</h2>
+                {% endif %}
+                {% if slide.subtitle %}
+                <p class="hero__subtitle">{{ slide.subtitle }}</p>
+                {% endif %}
+                {% if slide.btn_text and slide.btn_url %}
+                <a href="{{ slide.btn_url }}" class="hero__cta">
+                    {{ slide.btn_text }}
+                    <i class="sicon-keyboard_arrow_left"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>

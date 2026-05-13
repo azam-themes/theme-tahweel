@@ -1,0 +1,25 @@
+{# ============================================
+   Categories Grid Component - ثيم تحويل
+   شبكة الأقسام المميزة
+   ============================================ #}
+
+<section class="section">
+    <div class="container">
+        <div class="section__header">
+            <h2 class="section__title">{{ component.title|default(trans('common.categories')) }}</h2>
+        </div>
+
+        <div class="categories-grid" style="grid-template-columns: repeat({{ component.columns|default(4) }}, 1fr);">
+            {% for category in store.categories %}
+            <a href="{{ category.url }}" class="category-card">
+                {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.name }}" loading="lazy">
+                {% endif %}
+                <div class="category-card__overlay">
+                    <span class="category-card__name">{{ category.name }}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>

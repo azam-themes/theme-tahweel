@@ -1,0 +1,75 @@
+{# ============================================
+   Footer Component - ثيم تحويل
+   ============================================ #}
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__grid">
+            {# About Store #}
+            <div class="footer__col">
+                <h3 class="footer__title">{{ trans('footer.about_store') }}</h3>
+                <div class="footer__logo" style="margin-bottom: 12px;">
+                    <img src="{{ store.logo }}" alt="{{ store.name }}" style="max-height: 40px; filter: brightness(0) invert(1);">
+                </div>
+                <p style="font-size: 14px; color: #9ca3af; line-height: 1.8;">{{ store.description }}</p>
+                <div class="footer__social">
+                    {% if store.social.twitter %}
+                    <a href="{{ store.social.twitter }}" target="_blank" rel="noopener" aria-label="Twitter"><i class="sicon-twitter"></i></a>
+                    {% endif %}
+                    {% if store.social.instagram %}
+                    <a href="{{ store.social.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><i class="sicon-instagram"></i></a>
+                    {% endif %}
+                    {% if store.social.snapchat %}
+                    <a href="{{ store.social.snapchat }}" target="_blank" rel="noopener" aria-label="Snapchat"><i class="sicon-snapchat"></i></a>
+                    {% endif %}
+                    {% if store.social.tiktok %}
+                    <a href="{{ store.social.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok"><i class="sicon-tiktok"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Quick Links #}
+            <div class="footer__col">
+                <h3 class="footer__title">{{ trans('footer.quick_links') }}</h3>
+                <div class="footer__links">
+                    <a href="/">{{ trans('common.home') }}</a>
+                    <a href="/products">{{ trans('common.products') }}</a>
+                    {% for category in store.categories|slice(0, 5) %}
+                    <a href="{{ category.url }}">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# Customer Service #}
+            <div class="footer__col">
+                <h3 class="footer__title">{{ trans('footer.customer_service') }}</h3>
+                <div class="footer__links">
+                    <a href="/profile">{{ trans('common.my_account') }}</a>
+                    <a href="/orders">{{ trans('common.orders') }}</a>
+                    <a href="/wishlist">{{ trans('common.wishlist') }}</a>
+                    <a href="/contact">{{ trans('common.contact') }}</a>
+                    {% for page in store.pages %}
+                    <a href="{{ page.url }}">{{ page.title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# Newsletter #}
+            <div class="footer__col">
+                <h3 class="footer__title">{{ trans('footer.newsletter') }}</h3>
+                <p style="font-size: 13px; color: #9ca3af; margin-bottom: 12px;">{{ trans('footer.newsletter_desc') }}</p>
+                <salla-newsletter></salla-newsletter>
+            </div>
+        </div>
+
+        {# Payment Methods #}
+        <div style="text-align: center; margin-bottom: 20px;">
+            <salla-payment-methods></salla-payment-methods>
+        </div>
+
+        {# Bottom Bar #}
+        <div class="footer__bottom">
+            <p>&copy; {{ "now"|date("Y") }} {{ store.name }}. {{ trans('footer.rights') }} | {{ trans('footer.powered_by') }}</p>
+        </div>
+    </div>
+</footer>

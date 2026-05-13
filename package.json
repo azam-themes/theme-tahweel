@@ -1,0 +1,12 @@
+{
+  "name": "theme-tahweel",
+  "version": "1.0.0",
+  "description": "ثيم تحويل - ثيم احترافي لمنصة سلة مركز على زيادة المبيعات وتحسين معدل التحويل",
+  "author": "Tahweel Themes",
+  "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}

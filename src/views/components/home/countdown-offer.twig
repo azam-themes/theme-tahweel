@@ -1,0 +1,74 @@
+{# ============================================
+   Countdown Offer Component - ثيم تحويل
+   عرض مع عداد تنازلي لخلق إحساس بالإلحاح (FOMO)
+   ============================================ #}
+
+{% if theme.settings.get("show_countdown") %}
+<section class="countdown-section" {% if component.bg_image %}style="background-image: url('{{ component.bg_image }}');"{% endif %}>
+    <div class="countdown-section__overlay"></div>
+    <div class="container">
+        <div class="countdown-section__content">
+            {% if component.title %}
+            <h2 class="countdown-section__title">{{ component.title }}</h2>
+            {% endif %}
+            {% if component.description %}
+            <p class="countdown-section__desc">{{ component.description }}</p>
+            {% endif %}
+
+            {# Countdown Timer #}
+            <div class="countdown-timer" id="countdownTimer" data-end="{{ component.end_date }}">
+                <div class="countdown-timer__item">
+                    <span class="countdown-timer__number" id="countdown-days">00</span>
+                    <span class="countdown-timer__label">{{ trans('countdown.days') }}</span>
+                </div>
+                <div class="countdown-timer__item">
+                    <span class="countdown-timer__number" id="countdown-hours">00</span>
+                    <span class="countdown-timer__label">{{ trans('countdown.hours') }}</span>
+                </div>
+                <div class="countdown-timer__item">
+                    <span class="countdown-timer__number" id="countdown-minutes">00</span>
+                    <span class="countdown-timer__label">{{ trans('countdown.minutes') }}</span>
+                </div>
+                <div class="countdown-timer__item">
+                    <span class="countdown-timer__number" id="countdown-seconds">00</span>
+                    <span class="countdown-timer__label">{{ trans('countdown.seconds') }}</span>
+                </div>
+            </div>
+
+            {% if component.btn_text and component.btn_url %}
+            <a href="{{ component.btn_url }}" class="countdown-section__btn">
+                {{ component.btn_text }}
+                <i class="sicon-keyboard_arrow_left"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    var timer = document.getElementById('countdownTimer');
+    if (!timer) return;
+    var endDate = new Date(timer.dataset.end).getTime();
+
+    function updateCountdown() {
+        var now = new Date().getTime();
+        var diff = endDate - now;
+        if (diff <= 0) { return; }
+
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+})();
+</script>
+{% endif %}

@@ -1,0 +1,45 @@
+{# ============================================
+   Single Blog Post - ثيم تحويل
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+<div style="background: var(--card-bg); padding: 12px 0; border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <salla-breadcrumb></salla-breadcrumb>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <article style="max-width: 800px; margin: 0 auto;">
+            <header style="margin-bottom: 32px;">
+                <time style="font-size: 13px; color: #9ca3af;">{{ post.date }}</time>
+                <h1 style="font-size: 28px; font-weight: 800; margin: 8px 0 16px; line-height: 1.5;">{{ post.title }}</h1>
+                {% if post.image %}
+                <div style="border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px;">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" style="width: 100%;">
+                </div>
+                {% endif %}
+            </header>
+
+            <div style="font-size: 16px; line-height: 2; color: #374151;">
+                {{ post.content|raw }}
+            </div>
+
+            <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                <span style="font-weight: 600;">{{ trans('common.share') }}:</span>
+                <salla-social-share></salla-social-share>
+            </div>
+        </article>
+
+        {# Comments #}
+        <div style="max-width: 800px; margin: 48px auto 0;">
+            {% include 'components/comments.twig' %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

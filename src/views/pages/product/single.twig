@@ -1,0 +1,191 @@
+{# ============================================
+   Single Product Page - ثيم تحويل
+   صفحة منتج مصممة لزيادة التحويل
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+{# Breadcrumb #}
+<div style="background: var(--card-bg); padding: 12px 0; border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <salla-breadcrumb></salla-breadcrumb>
+    </div>
+</div>
+
+<section class="section" style="padding-top: 32px;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 32px;">
+
+            {# Product Images #}
+            <div>
+                <salla-product-images product-id="{{ product.id }}"></salla-product-images>
+            </div>
+
+            {# Product Info #}
+            <div>
+                {# Product Name #}
+                <h1 style="font-size: 24px; font-weight: 800; margin-bottom: 8px; line-height: 1.4;">{{ product.name }}</h1>
+
+                {# Rating #}
+                {% if product.rating %}
+                <div class="product-card__rating" style="margin-bottom: 12px;">
+                    <span class="product-card__stars" style="font-size: 16px;">
+                        {% for i in 1..5 %}
+                        <i class="sicon-star{{ i <= product.rating.stars ? '' : '-empty' }}"></i>
+                        {% endfor %}
+                    </span>
+                    <span style="font-size: 14px; color: #6b7280;">({{ product.rating.count }} {{ trans('product.reviews') }})</span>
+                </div>
+                {% endif %}
+
+                {# Price #}
+                <div style="margin-bottom: 16px;">
+                    <div class="product-card__price" style="font-size: 20px;">
+                        <span class="product-card__price-current" style="font-size: 28px;">{{ product.price|money }}</span>
+                        {% if product.is_on_sale and product.regular_price %}
+                        <span class="product-card__price-old" style="font-size: 18px;">{{ product.regular_price|money }}</span>
+                        <span class="product-card__price-discount" style="font-size: 14px; padding: 4px 10px;">
+                            {{ trans('common.sale') }} -{{ product.discount_percentage }}%
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if product.tax_text %}
+                    <p style="font-size: 12px; color: #9ca3af; margin-top: 4px;">{{ product.tax_text }}</p>
+                    {% endif %}
+                </div>
+
+                {# Urgency Indicators - مؤشرات الاستعجال #}
+                {% if product.quantity is defined and product.quantity > 0 and product.quantity <= 10 %}
+                <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                    <i class="sicon-fire" style="color: var(--promo-bar); font-size: 18px;"></i>
+                    <span style="font-size: 13px; font-weight: 600; color: var(--promo-bar);">
+                        {{ trans('product.limited_stock', {count: product.quantity}) }}
+                    </span>
+                </div>
+                {% endif %}
+
+                {# Short Description #}
+                {% if product.short_description %}
+                <p style="font-size: 15px; color: #4b5563; line-height: 1.8; margin-bottom: 20px;">{{ product.short_description }}</p>
+                {% endif %}
+
+                {# Product Options #}
+                <salla-product-options product-id="{{ product.id }}"></salla-product-options>
+
+                {# Quantity & Add to Cart #}
+                <div style="display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap;">
+                    <salla-quantity-input product-id="{{ product.id }}"></salla-quantity-input>
+
+                    <salla-add-product-btn product-id="{{ product.id }}" style="flex: 1; min-width: 200px;">
+                        <div class="product-card__add-btn" style="padding: 14px; font-size: 16px;">
+                            <i class="sicon-shopping-bag"></i>
+                            {{ trans('common.add_to_cart') }}
+                        </div>
+                    </salla-add-product-btn>
+                </div>
+
+                {# Buy Now Button #}
+                {% if theme.settings.get("show_quick_buy") %}
+                <salla-buy-now-btn product-id="{{ product.id }}" style="width: 100%; margin-bottom: 16px;">
+                    <button style="width: 100%; padding: 14px; background: var(--primary); color: #fff; font-size: 16px; font-weight: 700; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer;">
+                        <i class="sicon-flash"></i>
+                        {{ trans('common.buy_now') }}
+                    </button>
+                </salla-buy-now-btn>
+                {% endif %}
+
+                {# Trust Badges - Mini #}
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 20px 0; padding: 16px; background: var(--card-bg); border-radius: var(--radius-md);">
+                    <div style="text-align: center;">
+                        <i class="sicon-shield-check" style="font-size: 20px; color: var(--cta); display: block; margin-bottom: 4px;"></i>
+                        <span style="font-size: 11px; font-weight: 600;">{{ trans('trust.secure_payment') }}</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class="sicon-refresh" style="font-size: 20px; color: var(--cta); display: block; margin-bottom: 4px;"></i>
+                        <span style="font-size: 11px; font-weight: 600;">{{ trans('trust.easy_return') }}</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <i class="sicon-truck" style="font-size: 20px; color: var(--cta); display: block; margin-bottom: 4px;"></i>
+                        <span style="font-size: 11px; font-weight: 600;">{{ trans('trust.fast_delivery') }}</span>
+                    </div>
+                </div>
+
+                {# Share #}
+                <div style="display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border);">
+                    <span style="font-size: 14px; font-weight: 600;">{{ trans('common.share') }}:</span>
+                    <salla-social-share></salla-social-share>
+                </div>
+            </div>
+        </div>
+
+        {# Product Tabs #}
+        <div style="margin-top: 48px;">
+            <div style="display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 24px; overflow-x: auto;">
+                <button class="tab-btn tab-btn--active" data-tab="description" style="padding: 12px 24px; font-size: 15px; font-weight: 600; border-bottom: 2px solid var(--primary); margin-bottom: -2px; color: var(--primary); white-space: nowrap;">
+                    {{ trans('product.description') }}
+                </button>
+                {% if product.specifications|length %}
+                <button class="tab-btn" data-tab="specs" style="padding: 12px 24px; font-size: 15px; font-weight: 600; color: #6b7280; white-space: nowrap;">
+                    {{ trans('product.specifications') }}
+                </button>
+                {% endif %}
+                <button class="tab-btn" data-tab="reviews" style="padding: 12px 24px; font-size: 15px; font-weight: 600; color: #6b7280; white-space: nowrap;">
+                    {{ trans('product.reviews') }}
+                </button>
+            </div>
+
+            <div class="tab-content" id="tab-description">
+                <div style="font-size: 15px; line-height: 2; color: #4b5563;">
+                    {{ product.description|raw }}
+                </div>
+            </div>
+
+            {% if product.specifications|length %}
+            <div class="tab-content" id="tab-specs" style="display: none;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    {% for spec in product.specifications %}
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px; font-weight: 600; width: 200px; background: var(--card-bg);">{{ spec.name }}</td>
+                        <td style="padding: 12px;">{{ spec.value }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+
+            <div class="tab-content" id="tab-reviews" style="display: none;">
+                <salla-product-reviews product-id="{{ product.id }}"></salla-product-reviews>
+            </div>
+        </div>
+
+        {# Related Products #}
+        <section class="section" style="padding-bottom: 0;">
+            <div class="section__header">
+                <h2 class="section__title">{{ trans('product.related') }}</h2>
+            </div>
+            <salla-products-slider source="related" product-id="{{ product.id }}"></salla-products-slider>
+        </section>
+    </div>
+</section>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(function(b) {
+            b.classList.remove('tab-btn--active');
+            b.style.borderBottom = 'none';
+            b.style.color = '#6b7280';
+        });
+        this.classList.add('tab-btn--active');
+        this.style.borderBottom = '2px solid var(--primary)';
+        this.style.color = 'var(--primary)';
+
+        document.querySelectorAll('.tab-content').forEach(function(c) { c.style.display = 'none'; });
+        document.getElementById('tab-' + this.dataset.tab).style.display = 'block';
+    });
+});
+</script>
+
+{% endblock %}

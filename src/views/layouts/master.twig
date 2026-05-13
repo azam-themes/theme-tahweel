@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="{{ store.locale }}" dir="{{ store.locale == 'ar' ? 'rtl' : 'ltr' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="{{ page.meta_description|default(store.description) }}">
+    <meta name="keywords" content="{{ page.meta_keywords|default('') }}">
+
+    {# Open Graph #}
+    <meta property="og:title" content="{{ page.title|default(store.name) }}">
+    <meta property="og:description" content="{{ page.meta_description|default(store.description) }}">
+    <meta property="og:image" content="{{ page.og_image|default(store.logo) }}">
+    <meta property="og:url" content="{{ page.url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ store.locale == 'ar' ? 'ar_SA' : 'en_US' }}">
+
+    {# Twitter Card #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.title|default(store.name) }}">
+    <meta name="twitter:description" content="{{ page.meta_description|default(store.description) }}">
+    <meta name="twitter:image" content="{{ page.og_image|default(store.logo) }}">
+
+    <title>{{ page.title|default(store.name) }}</title>
+
+    {# Favicon #}
+    <link rel="icon" href="{{ store.favicon }}" type="image/x-icon">
+
+    {# Fonts - Tajawal for Arabic, Inter for English #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    {# Salla Icons #}
+    <link rel="stylesheet" href="{{ 'salla-icons.css' | asset }}">
+
+    {# Theme Styles #}
+    <link rel="stylesheet" href="{{ 'styles/app.css' | asset }}">
+
+    {# Dynamic CSS Variables from Theme Settings #}
+    <style>
+        :root {
+            --theme-primary: {{ theme.settings.get("primary_color")|default('#2563eb') }};
+            --theme-secondary: {{ theme.settings.get("secondary_color")|default('#f59e0b') }};
+            --theme-text: {{ theme.settings.get("text_color")|default('#1f2937') }};
+            --theme-bg: {{ theme.settings.get("bg_color")|default('#ffffff') }};
+            --theme-footer-bg: {{ theme.settings.get("footer_bg_color")|default('#111827') }};
+            --theme-footer-text: {{ theme.settings.get("footer_text_color")|default('#f9fafb') }};
+            --theme-cta: {{ theme.settings.get("cta_color")|default('#16a34a') }};
+            --theme-cta-text: {{ theme.settings.get("cta_text_color")|default('#ffffff') }};
+            --theme-promo-bar: {{ theme.settings.get("promo_bar_color")|default('#dc2626') }};
+            --theme-card-bg: {{ theme.settings.get("card_bg_color")|default('#f9fafb') }};
+            --theme-border: {{ theme.settings.get("border_color")|default('#e5e7eb') }};
+            --theme-star: {{ theme.settings.get("star_color")|default('#f59e0b') }};
+        }
+    </style>
+
+    {# Salla Web Components #}
+    {{ header_resources }}
+</head>
+<body class="{{ theme.settings.get('enable_dark_mode') ? 'dark-mode' : '' }}">
+
+    {# Promo Bar #}
+    {% if theme.settings.get("show_promo_bar") %}
+    <div class="promo-bar" id="promoBar">
+        <span>{{ theme.settings.get("promo_bar_text") }}</span>
+        <button class="promo-bar__close" onclick="document.getElementById('promoBar').style.display='none'" aria-label="{{ trans('common.close') }}">
+            <i class="sicon-cancel"></i>
+        </button>
+    </div>
+    {% endif %}
+
+    {# Header #}
+    {% include 'components/header/header.twig' %}
+
+    {# Trust Bar #}
+    {% if theme.settings.get("show_trust_bar") %}
+    {% include 'components/home/trust-badges.twig' %}
+    {% endif %}
+
+    {# Main Content #}
+    <main id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {# Footer #}
+    {% include 'components/footer/footer.twig' %}
+
+    {# Mobile Bottom Navigation #}
+    <nav class="mobile-nav" aria-label="التنقل السريع">
+        <ul class="mobile-nav__list">
+            <li>
+                <a href="/" class="mobile-nav__item {{ page.slug == 'index' ? 'mobile-nav__item--active' : '' }}">
+                    <i class="sicon-home"></i>
+                    <span>{{ trans('common.home') }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="/categories" class="mobile-nav__item">
+                    <i class="sicon-grid"></i>
+                    <span>{{ trans('common.categories') }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="/cart" class="mobile-nav__item">
+                    <i class="sicon-shopping-bag"></i>
+                    <span>{{ trans('common.cart') }}</span>
+                    <salla-cart-count></salla-cart-count>
+                </a>
+            </li>
+            <li>
+                <a href="/wishlist" class="mobile-nav__item">
+                    <i class="sicon-heart"></i>
+                    <span>{{ trans('common.wishlist') }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile" class="mobile-nav__item">
+                    <i class="sicon-user"></i>
+                    <span>{{ trans('common.my_account') }}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    {# WhatsApp Button #}
+    {% if theme.settings.get("show_whatsapp") and theme.settings.get("whatsapp_number") %}
+    <a href="https://wa.me/{{ theme.settings.get('whatsapp_number') }}" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="واتساب">
+        <i class="sicon-whatsapp"></i>
+    </a>
+    {% endif %}
+
+    {# Scroll to Top #}
+    <button class="scroll-top" id="scrollTop" aria-label="العودة للأعلى">
+        <i class="sicon-keyboard_arrow_up"></i>
+    </button>
+
+    {# Theme JavaScript #}
+    <script src="{{ 'js/app.js' | asset }}"></script>
+
+    {# Salla Footer Resources #}
+    {{ footer_resources }}
+
+    {# Scroll to Top Script #}
+    <script>
+        (function() {
+            var scrollBtn = document.getElementById('scrollTop');
+            if (!scrollBtn) return;
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    scrollBtn.classList.add('scroll-top--visible');
+                } else {
+                    scrollBtn.classList.remove('scroll-top--visible');
+                }
+            });
+            scrollBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Header scroll effect
+            var header = document.querySelector('.header');
+            if (header) {
+                window.addEventListener('scroll', function() {
+                    header.classList.toggle('header--scrolled', window.scrollY > 10);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

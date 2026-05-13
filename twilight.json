@@ -1,0 +1,322 @@
+{
+  "version": "1.0.0",
+  "theme_name": "تحويل - Tahweel",
+  "repo_url": "",
+  "support_url": "",
+  "settings": [
+    {
+      "type": "string",
+      "label": "اللون الرئيسي",
+      "id": "primary_color",
+      "format": "color",
+      "value": "#2563eb"
+    },
+    {
+      "type": "string",
+      "label": "اللون الثانوي",
+      "id": "secondary_color",
+      "format": "color",
+      "value": "#f59e0b"
+    },
+    {
+      "type": "string",
+      "label": "لون النصوص",
+      "id": "text_color",
+      "format": "color",
+      "value": "#1f2937"
+    },
+    {
+      "type": "string",
+      "label": "لون الخلفية",
+      "id": "bg_color",
+      "format": "color",
+      "value": "#ffffff"
+    },
+    {
+      "type": "string",
+      "label": "لون خلفية الفوتر",
+      "id": "footer_bg_color",
+      "format": "color",
+      "value": "#111827"
+    },
+    {
+      "type": "string",
+      "label": "لون نص الفوتر",
+      "id": "footer_text_color",
+      "format": "color",
+      "value": "#f9fafb"
+    },
+    {
+      "type": "string",
+      "label": "لون زر الشراء",
+      "id": "cta_color",
+      "format": "color",
+      "value": "#16a34a"
+    },
+    {
+      "type": "string",
+      "label": "لون نص زر الشراء",
+      "id": "cta_text_color",
+      "format": "color",
+      "value": "#ffffff"
+    },
+    {
+      "type": "string",
+      "label": "لون شريط العروض",
+      "id": "promo_bar_color",
+      "format": "color",
+      "value": "#dc2626"
+    },
+    {
+      "type": "string",
+      "label": "لون خلفية البطاقات",
+      "id": "card_bg_color",
+      "format": "color",
+      "value": "#f9fafb"
+    },
+    {
+      "type": "string",
+      "label": "لون الحدود",
+      "id": "border_color",
+      "format": "color",
+      "value": "#e5e7eb"
+    },
+    {
+      "type": "string",
+      "label": "لون النجوم (التقييم)",
+      "id": "star_color",
+      "format": "color",
+      "value": "#f59e0b"
+    },
+    {
+      "type": "boolean",
+      "label": "تفعيل شريط العروض العلوي",
+      "id": "show_promo_bar",
+      "format": "switch",
+      "selected": true
+    },
+    {
+      "type": "string",
+      "label": "نص شريط العروض",
+      "id": "promo_bar_text",
+      "format": "text",
+      "value": "🔥 خصم 20% على جميع المنتجات - استخدم كود: TAHWEEL20"
+    },
+    {
+      "type": "boolean",
+      "label": "تفعيل شريط الثقة",
+      "id": "show_trust_bar",
+      "format": "switch",
+      "selected": true
+    },
+    {
+      "type": "boolean",
+      "label": "تفعيل العداد التنازلي",
+      "id": "show_countdown",
+      "format": "switch",
+      "selected": true
+    },
+    {
+      "type": "boolean",
+      "label": "تفعيل الشراء السريع",
+      "id": "show_quick_buy",
+      "format": "switch",
+      "selected": true
+    },
+    {
+      "type": "boolean",
+      "label": "تفعيل زر واتساب",
+      "id": "show_whatsapp",
+      "format": "switch",
+      "selected": true
+    },
+    {
+      "type": "string",
+      "label": "رقم واتساب",
+      "id": "whatsapp_number",
+      "format": "text",
+      "value": ""
+    },
+    {
+      "type": "boolean",
+      "label": "تفعيل الوضع الداكن",
+      "id": "enable_dark_mode",
+      "format": "switch",
+      "selected": false
+    },
+    {
+      "type": "boolean",
+      "label": "شريط علوي داكن",
+      "id": "topnav_is_dark",
+      "format": "switch",
+      "selected": false
+    },
+    {
+      "type": "string",
+      "id": "placeholder",
+      "format": "hidden",
+      "value": "images/img_placeholder.png"
+    }
+  ],
+  "features": [
+    "component-featured-products",
+    "component-fixed-banner",
+    "component-fixed-products",
+    "component-photos-slider",
+    "component-products-slider",
+    "component-parallax-background",
+    "component-random-testimonials",
+    "component-testimonials",
+    "component-square-photos",
+    "component-store-features",
+    "component-youtube",
+    "filters"
+  ],
+  "components": [
+    {
+      "name": "hero-banner",
+      "title": "بانر رئيسي متحرك",
+      "icon": "sicon-image-carousel",
+      "path": "home.hero-banner",
+      "fields": [
+        {
+          "id": "slides",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 5,
+          "fields": [
+            {"id": "image", "type": "string", "format": "image", "label": "صورة البانر"},
+            {"id": "title", "type": "string", "label": "العنوان الرئيسي"},
+            {"id": "subtitle", "type": "string", "format": "textarea", "label": "النص التوضيحي"},
+            {"id": "btn_text", "type": "string", "label": "نص الزر"},
+            {"id": "btn_url", "type": "string", "label": "رابط الزر"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "trust-badges",
+      "title": "شارات الثقة والضمان",
+      "icon": "sicon-shield-check",
+      "path": "home.trust-badges",
+      "fields": [
+        {
+          "id": "badges",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 6,
+          "fields": [
+            {"id": "icon", "type": "string", "label": "أيقونة (sicon class)"},
+            {"id": "title", "type": "string", "label": "العنوان"},
+            {"id": "description", "type": "string", "label": "الوصف"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "countdown-offer",
+      "title": "عرض مع عداد تنازلي",
+      "icon": "sicon-clock",
+      "path": "home.countdown-offer",
+      "fields": [
+        {"id": "bg_image", "type": "string", "format": "image", "label": "صورة الخلفية"},
+        {"id": "title", "type": "string", "label": "عنوان العرض"},
+        {"id": "description", "type": "string", "format": "textarea", "label": "وصف العرض"},
+        {"id": "end_date", "type": "string", "label": "تاريخ انتهاء العرض (YYYY-MM-DD HH:MM)"},
+        {"id": "btn_text", "type": "string", "label": "نص الزر"},
+        {"id": "btn_url", "type": "string", "label": "رابط الزر"}
+      ]
+    },
+    {
+      "name": "social-proof",
+      "title": "إثبات اجتماعي - آراء العملاء",
+      "icon": "sicon-star",
+      "path": "home.social-proof",
+      "fields": [
+        {"id": "title", "type": "string", "label": "عنوان القسم"},
+        {
+          "id": "reviews",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 12,
+          "fields": [
+            {"id": "name", "type": "string", "label": "اسم العميل"},
+            {"id": "rating", "type": "string", "label": "التقييم (1-5)"},
+            {"id": "text", "type": "string", "format": "textarea", "label": "نص التقييم"},
+            {"id": "avatar", "type": "string", "format": "image", "label": "صورة العميل (اختياري)"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "categories-grid",
+      "title": "شبكة الأقسام المميزة",
+      "icon": "sicon-grid",
+      "path": "home.categories-grid",
+      "fields": [
+        {"id": "title", "type": "string", "label": "عنوان القسم"},
+        {"id": "columns", "type": "string", "label": "عدد الأعمدة (2-4)"}
+      ]
+    },
+    {
+      "name": "benefits-bar",
+      "title": "شريط المميزات والفوائد",
+      "icon": "sicon-check-circle",
+      "path": "home.benefits-bar",
+      "fields": [
+        {
+          "id": "benefits",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 4,
+          "fields": [
+            {"id": "icon", "type": "string", "label": "أيقونة"},
+            {"id": "title", "type": "string", "label": "العنوان"},
+            {"id": "description", "type": "string", "label": "الوصف"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "faq-section",
+      "title": "الأسئلة الشائعة",
+      "icon": "sicon-help-circle",
+      "path": "home.faq-section",
+      "fields": [
+        {"id": "title", "type": "string", "label": "عنوان القسم"},
+        {
+          "id": "questions",
+          "type": "collection",
+          "format": "collection",
+          "required": true,
+          "minLength": 1,
+          "maxLength": 10,
+          "fields": [
+            {"id": "question", "type": "string", "label": "السؤال"},
+            {"id": "answer", "type": "string", "format": "textarea", "label": "الإجابة"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "newsletter-popup",
+      "title": "نافذة الاشتراك بالنشرة البريدية",
+      "icon": "sicon-mail",
+      "path": "home.newsletter-popup",
+      "fields": [
+        {"id": "title", "type": "string", "label": "العنوان"},
+        {"id": "description", "type": "string", "format": "textarea", "label": "الوصف"},
+        {"id": "discount_code", "type": "string", "label": "كود الخصم (اختياري)"},
+        {"id": "bg_image", "type": "string", "format": "image", "label": "صورة الخلفية"}
+      ]
+    }
+  ]
+}

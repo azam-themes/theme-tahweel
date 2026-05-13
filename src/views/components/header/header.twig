@@ -1,0 +1,64 @@
+{# ============================================
+   Header Component - ثيم تحويل
+   ============================================ #}
+
+<header class="header" id="siteHeader">
+    <div class="container">
+        <div class="header__inner">
+            {# Logo #}
+            <div class="header__logo">
+                <a href="/" aria-label="{{ store.name }}">
+                    <img src="{{ store.logo }}" alt="{{ store.name }}" loading="eager">
+                </a>
+            </div>
+
+            {# Search #}
+            <div class="header__search">
+                <salla-search></salla-search>
+            </div>
+
+            {# Actions #}
+            <div class="header__actions">
+                {# Language Switcher #}
+                <salla-locale-switch></salla-locale-switch>
+
+                {# User Account #}
+                <a href="/profile" class="header__action-btn" aria-label="{{ trans('common.my_account') }}">
+                    <i class="sicon-user"></i>
+                </a>
+
+                {# Wishlist #}
+                <a href="/wishlist" class="header__action-btn" aria-label="{{ trans('common.wishlist') }}">
+                    <i class="sicon-heart"></i>
+                </a>
+
+                {# Cart #}
+                <a href="/cart" class="header__action-btn" aria-label="{{ trans('common.cart') }}">
+                    <i class="sicon-shopping-bag"></i>
+                    <salla-cart-count class="badge"></salla-cart-count>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {# Navigation #}
+    <nav class="nav" aria-label="القائمة الرئيسية">
+        <div class="container">
+            <ul class="nav__list">
+                <li class="nav__item nav__item--active">
+                    <a href="/">{{ trans('common.home') }}</a>
+                </li>
+                {% for category in store.categories %}
+                <li class="nav__item">
+                    <a href="{{ category.url }}">{{ category.name }}</a>
+                </li>
+                {% endfor %}
+                {% if store.blog_enabled %}
+                <li class="nav__item">
+                    <a href="/blog">{{ trans('common.blog') }}</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>

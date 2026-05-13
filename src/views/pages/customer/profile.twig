@@ -1,0 +1,18 @@
+{# ============================================
+   Customer Profile Page - ثيم تحويل
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="section__header" style="text-align: right;">
+            <h1 class="section__title">{{ trans('common.my_account') }}</h1>
+        </div>
+        <salla-customer-profile></salla-customer-profile>
+    </div>
+</section>
+
+{% endblock %}

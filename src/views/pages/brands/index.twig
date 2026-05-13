@@ -1,0 +1,28 @@
+{# ============================================
+   Brands Listing Page - ثيم تحويل
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="section__header">
+            <h1 class="section__title">العلامات التجارية</h1>
+        </div>
+
+        <div class="categories-grid">
+            {% for brand in brands %}
+            <a href="{{ brand.url }}" class="category-card">
+                <img src="{{ brand.image.url }}" alt="{{ brand.name }}" loading="lazy">
+                <div class="category-card__overlay">
+                    <span class="category-card__name">{{ brand.name }}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

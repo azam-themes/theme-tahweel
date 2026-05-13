@@ -1,0 +1,18 @@
+{# ============================================
+   Wishlist Page - ثيم تحويل
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="section__header" style="text-align: right;">
+            <h1 class="section__title">{{ trans('common.wishlist') }}</h1>
+        </div>
+        <salla-wishlist></salla-wishlist>
+    </div>
+</section>
+
+{% endblock %}

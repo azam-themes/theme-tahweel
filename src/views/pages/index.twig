@@ -1,0 +1,99 @@
+{# ============================================
+   Home Page - ثيم تحويل
+   الصفحة الرئيسية مصممة كصفحة هبوط لزيادة المبيعات
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+{# Hero Banner - البانر الرئيسي #}
+<salla-home-components>
+    {# Salla will render the home components defined in twilight.json here #}
+</salla-home-components>
+
+{# Featured Products - المنتجات المميزة #}
+<section class="section">
+    <div class="container">
+        <div class="section__header">
+            <h2 class="section__title">{{ trans('common.products') }}</h2>
+            <p class="section__subtitle">اكتشف أفضل المنتجات المختارة بعناية</p>
+        </div>
+
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <div class="product-card__image">
+                    <a href="{{ product.url }}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                    </a>
+
+                    {# Badges #}
+                    <div class="product-card__badges">
+                        {% if product.is_on_sale %}
+                        <span class="product-card__badge product-card__badge--sale">
+                            {{ trans('common.sale') }} {{ product.discount_percentage }}%
+                        </span>
+                        {% endif %}
+                        {% if product.is_new %}
+                        <span class="product-card__badge product-card__badge--new">{{ trans('common.new') }}</span>
+                        {% endif %}
+                    </div>
+
+                    {# Quick Actions #}
+                    <div class="product-card__quick-actions">
+                        <salla-add-product-btn product-id="{{ product.id }}" class="product-card__quick-btn">
+                            <i class="sicon-shopping-bag"></i>
+                        </salla-add-product-btn>
+                        <button class="product-card__quick-btn" onclick="salla.wishlist.toggle({{ product.id }})">
+                            <i class="sicon-heart"></i>
+                        </button>
+                        <a href="{{ product.url }}" class="product-card__quick-btn">
+                            <i class="sicon-eye"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card__info">
+                    <a href="{{ product.url }}">
+                        <h3 class="product-card__name">{{ product.name }}</h3>
+                    </a>
+
+                    {% if product.rating %}
+                    <div class="product-card__rating">
+                        <span class="product-card__stars">
+                            {% for i in 1..5 %}
+                            <i class="sicon-star{{ i <= product.rating.stars ? '' : '-empty' }}"></i>
+                            {% endfor %}
+                        </span>
+                        <span class="product-card__rating-count">({{ product.rating.count }})</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="product-card__price">
+                        <span class="product-card__price-current">{{ product.price|money }}</span>
+                        {% if product.is_on_sale and product.regular_price %}
+                        <span class="product-card__price-old">{{ product.regular_price|money }}</span>
+                        <span class="product-card__price-discount">-{{ product.discount_percentage }}%</span>
+                        {% endif %}
+                    </div>
+
+                    <salla-add-product-btn product-id="{{ product.id }}" class="product-card__add-btn">
+                        <i class="sicon-shopping-bag"></i>
+                        {{ trans('common.add_to_cart') }}
+                    </salla-add-product-btn>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center" style="margin-top: 32px;">
+            <a href="/products" class="section__link" style="font-size: 16px;">
+                {{ trans('common.view_all') }}
+                <i class="sicon-keyboard_arrow_left"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

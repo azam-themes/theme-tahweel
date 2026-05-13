@@ -1,0 +1,101 @@
+{# ============================================
+   Products Listing Page - ثيم تحويل
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+{# Breadcrumb #}
+<div style="background: var(--card-bg); padding: 12px 0; border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <salla-breadcrumb></salla-breadcrumb>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        {# Page Header #}
+        <div class="section__header" style="text-align: right;">
+            <h1 class="section__title">{{ page.title|default(trans('common.products')) }}</h1>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
+
+            {# Filters #}
+            <div>
+                <salla-filters></salla-filters>
+            </div>
+
+            {# Products #}
+            <div>
+                {# Sort Bar #}
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding: 12px 16px; background: var(--card-bg); border-radius: var(--radius-md);">
+                    <span style="font-size: 14px; color: #6b7280;">
+                        {{ products|length }} {{ trans('common.products') }}
+                    </span>
+                    <salla-products-sort></salla-products-sort>
+                </div>
+
+                {# Products Grid #}
+                <div class="products-grid">
+                    {% for product in products %}
+                    <div class="product-card">
+                        <div class="product-card__image">
+                            <a href="{{ product.url }}">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                            </a>
+                            <div class="product-card__badges">
+                                {% if product.is_on_sale %}
+                                <span class="product-card__badge product-card__badge--sale">-{{ product.discount_percentage }}%</span>
+                                {% endif %}
+                                {% if product.is_new %}
+                                <span class="product-card__badge product-card__badge--new">{{ trans('common.new') }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="product-card__quick-actions">
+                                <salla-add-product-btn product-id="{{ product.id }}" class="product-card__quick-btn">
+                                    <i class="sicon-shopping-bag"></i>
+                                </salla-add-product-btn>
+                                <button class="product-card__quick-btn" onclick="salla.wishlist.toggle({{ product.id }})">
+                                    <i class="sicon-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-card__info">
+                            <a href="{{ product.url }}"><h3 class="product-card__name">{{ product.name }}</h3></a>
+                            {% if product.rating %}
+                            <div class="product-card__rating">
+                                <span class="product-card__stars">
+                                    {% for i in 1..5 %}
+                                    <i class="sicon-star{{ i <= product.rating.stars ? '' : '-empty' }}"></i>
+                                    {% endfor %}
+                                </span>
+                                <span class="product-card__rating-count">({{ product.rating.count }})</span>
+                            </div>
+                            {% endif %}
+                            <div class="product-card__price">
+                                <span class="product-card__price-current">{{ product.price|money }}</span>
+                                {% if product.is_on_sale %}
+                                <span class="product-card__price-old">{{ product.regular_price|money }}</span>
+                                {% endif %}
+                            </div>
+                            <salla-add-product-btn product-id="{{ product.id }}" class="product-card__add-btn">
+                                <i class="sicon-shopping-bag"></i>
+                                {{ trans('common.add_to_cart') }}
+                            </salla-add-product-btn>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {# Pagination #}
+                <div style="margin-top: 32px; display: flex; justify-content: center;">
+                    <salla-infinite-scroll></salla-infinite-scroll>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

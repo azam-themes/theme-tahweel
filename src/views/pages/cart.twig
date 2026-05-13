@@ -1,0 +1,51 @@
+{# ============================================
+   Cart Page - ثيم تحويل
+   ============================================ #}
+
+{% extends "layouts/master.twig" %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="section__header" style="text-align: right;">
+            <h1 class="section__title">{{ trans('common.cart') }}</h1>
+        </div>
+
+        <salla-cart-summary></salla-cart-summary>
+
+        {# Trust Bar in Cart #}
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; padding: 20px; background: var(--card-bg); border-radius: var(--radius-lg);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="sicon-shield-check" style="font-size: 24px; color: var(--cta);"></i>
+                <div>
+                    <strong style="font-size: 13px; display: block;">{{ trans('trust.secure_payment') }}</strong>
+                    <span style="font-size: 11px; color: #6b7280;">{{ trans('trust.secure_payment_desc') }}</span>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="sicon-refresh" style="font-size: 24px; color: var(--cta);"></i>
+                <div>
+                    <strong style="font-size: 13px; display: block;">{{ trans('trust.easy_return') }}</strong>
+                    <span style="font-size: 11px; color: #6b7280;">{{ trans('trust.easy_return_desc') }}</span>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="sicon-truck" style="font-size: 24px; color: var(--cta);"></i>
+                <div>
+                    <strong style="font-size: 13px; display: block;">{{ trans('trust.fast_delivery') }}</strong>
+                    <span style="font-size: 11px; color: #6b7280;">{{ trans('trust.fast_delivery_desc') }}</span>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="sicon-check-circle" style="font-size: 24px; color: var(--cta);"></i>
+                <div>
+                    <strong style="font-size: 13px; display: block;">{{ trans('trust.original') }}</strong>
+                    <span style="font-size: 11px; color: #6b7280;">{{ trans('trust.original_desc') }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

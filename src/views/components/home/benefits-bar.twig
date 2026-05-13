@@ -1,0 +1,20 @@
+{# ============================================
+   Benefits Bar Component - ثيم تحويل
+   شريط المميزات والفوائد
+   ============================================ #}
+
+<section class="benefits-bar">
+    <div class="container">
+        <div class="benefits-bar__grid">
+            {% for benefit in component.benefits %}
+            <div class="benefits-bar__item">
+                <div class="benefits-bar__icon">
+                    <i class="{{ benefit.icon|default('sicon-check-circle') }}"></i>
+                </div>
+                <h4 class="benefits-bar__title">{{ benefit.title }}</h4>
+                <p class="benefits-bar__desc">{{ benefit.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

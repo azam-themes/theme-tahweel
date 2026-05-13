@@ -1,0 +1,28 @@
+{# ============================================
+   FAQ Section Component - ثيم تحويل
+   الأسئلة الشائعة - يزيل الشكوك ويقلل التردد
+   ============================================ #}
+
+<section class="section faq-section">
+    <div class="container">
+        <div class="section__header">
+            <h2 class="section__title">{{ component.title|default(trans('faq.title')) }}</h2>
+        </div>
+
+        <div class="faq-list">
+            {% for item in component.questions %}
+            <div class="faq-item" data-faq>
+                <button class="faq-item__question" onclick="this.parentElement.classList.toggle('faq-item--open')">
+                    <span>{{ item.question }}</span>
+                    <i class="faq-item__icon sicon-keyboard_arrow_down"></i>
+                </button>
+                <div class="faq-item__answer">
+                    <div class="faq-item__answer-inner">
+                        {{ item.answer }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
